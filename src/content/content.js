@@ -7,7 +7,6 @@ const extractArticleInfo = () => {
     const url = window.location.href;
 
     if (title && url) {
-        console.log("Hello World", title, publisher)
         return { title, publisher, publishDate, url };
     }
     return null;
