@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Saver</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 300px;
+            padding: 10px;
+        }
+        input, button, select {
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Save Article</h1>
+    <form id="article-form">
+        <input type="text" id="url" placeholder="Article URL" required />
+        <input type="text" id="title" placeholder="Article Title" required />
+        <input type="text" id="publisher" placeholder="Source" required />
+        <input type="date" id="publishDate" required />
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Technology">Technology</option>
+            <option value="Business">Business</option>
+            <option value="Science">Science</option>
+            <option value="Health">Health</option>
+            <option value="Sports">Sports</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Other">Other</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    <script src="popup.js"></script>
+</body>
+</html>

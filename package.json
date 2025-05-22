@@ -1,0 +1,33 @@
+{
+  "name": "article-saver-extension",
+  "version": "1.0.0",
+  "description": "A Chrome extension to save articles to a database.",
+  "main": "src/background/background.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "articles",
+    "mongoose"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0",
+    "eslint": "^7.0.0",
+    "jest": "^26.0.0"
+  },
+  "browser": {
+    "src/background/background.ts": "background.js",
+    "src/popup/popup.ts": "popup.js",
+    "src/content/content.ts": "content.js"
+  }
+}
