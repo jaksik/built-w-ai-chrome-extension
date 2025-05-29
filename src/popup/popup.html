@@ -13,6 +13,7 @@
         }
 
         input,
+        textarea,
         button,
         select {
             width: 100%;
@@ -20,25 +21,22 @@
             padding: 10px;
             box-sizing: border-box;
         }
+        
+        textarea {
+            resize: vertical;
+            font-family: inherit;
+        }
     </style>
 </head>
 
 <body>
     <h1>Save Article</h1>
     <form id="article-form">
-        <input type="text" id="url" placeholder="Article URL" required />
+        <input type="text" id="link" placeholder="Article URL" required />
         <input type="text" id="title" placeholder="Article Title" required />
-        <input type="text" id="publisher" placeholder="Source" required />
-        <input type="date" id="publishDate" required />
-        <select id="category" required>
-            <option value="">Select Category</option>
-            <option value="Industry Shifts">Industry Shifts</option>
-            <option value="Product">Product</option>
-            <option value="AI Agents">AI Agents</option>
-            <option value="Startups">Startups</option>
-            <option value="Research">Research</option>
-            <option value="Other" selected>Other</option>
-        </select>
+        <input type="text" id="sourceName" placeholder="Source Name" required />
+        <textarea id="descriptionSnippet" placeholder="Article Description" rows="3"></textarea>
+        <input type="date" id="publishedDate" required />
         <button type="submit">Submit</button>
     </form>
     <script src="popup.js"></script>
