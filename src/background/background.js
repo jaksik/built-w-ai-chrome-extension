@@ -6,47 +6,54 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         
         const article = {
             title: request.data.title,
-            link: request.data.url,         // Changed from url to link
-            source: request.data.publisher,  // Changed from publisher to source
-            publishedAt: request.data.publishDate, // Changed from publishDate to publishedAt
-            category: request.data.category || ''  // Added category field
+            link: request.data.link,
+            sourceName: request.data.sourceName,
+            descriptionSnippet: request.data.descriptionSnippet,
+            publishedDate: request.data.publishedDate
         };
 
         // Send to backend API instead of storing locally
-        fetch('https://built-w-ai-server.onrender.com/api/articles', {
+        fetch('https://ai-news-aggregator-nine.vercel.app/api/external-article-create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(article),
         })
-        .then(response => response.json())
+        .then(async response => {
+            // Check if the response is ok (status 200-299)
+            if (!response.ok) {
+                // Try to parse error message from server response
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const errorData = await response.json();
+                    if (errorData.message) {
+                        errorMessage = errorData.message;
+                    }
+                } catch (parseError) {
+                    console.warn('Could not parse error response:', parseError);
+                }
+                throw new Error(errorMessage);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Article saved to database:', data);
             sendResponse({ success: true, message: 'Article saved to database!', data });
         })
         .catch(error => {
             console.error('Error saving article:', error);
-            sendResponse({ success: false, message: 'Failed to save article to database.' });
+            let errorMessage = error.message;
+            
+            // Check if it's a network error (server not running)
+            if (error.message.includes('Failed to fetch') || error.message.includes('Network request failed')) {
+                errorMessage = 'Cannot connect to server. Make sure the server is running on localhost:3000';
+            }
+            
+            sendResponse({ success: false, message: `Failed to save article: ${errorMessage}` });
         });
 
         return true; // Indicates that the response will be sent asynchronously
     }
     return false; // For other message types or if data is missing
-});
-
-// Optional: Add a way to get all articles from the database
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.type === 'GET_ALL_ARTICLES') {
-        fetch('http://localhost:3000/api/articles')
-            .then(response => response.json())
-            .then(articles => {
-                sendResponse({ success: true, data: articles });
-            })
-            .catch(error => {
-                console.error('Error retrieving articles:', error);
-                sendResponse({ success: false, error: error.message });
-            });
-        return true; // Async response
-    }
 });

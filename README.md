@@ -16,15 +16,26 @@ article-saver-extension
 │   ├── manifest.json
 │   ├── popup
 │   │   ├── popup.html
-│   │   └── popup.ts
+│   │   └── popup.js
 │   ├── content
-│   │   └── content.ts
+│   │   └── content.js
 │   ├── background
-│   │   └── background.ts
-│   └── types
-│       └── index.ts
+│   │   └── background.js
+│   ├── types
+│   │   └── index.js
+│   └── icons
+│       ├── icon16.png
+│       ├── icon48.png
+│       └── icon128.png
+├── server
+│   ├── package.json
+│   └── src
+│       ├── server.js
+│       ├── models
+│       │   └── article.js
+│       └── routes
+│           └── articles.js
 ├── package.json
-├── tsconfig.json
 └── README.md
 ```
 
