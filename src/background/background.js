@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         };
 
         // Send to backend API instead of storing locally
-        fetch('https://ai-news-aggregator-nine.vercel.app/api/external-article-create', {
+        fetch('https://ai-news-aggregator-nine.vercel.app/api/articles/external', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
